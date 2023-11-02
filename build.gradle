@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.baseblocks'
+            artifactId = 'checkstyle-columndefinition-rule'
+            version = "0.0.1"
+            from components.java
+        }
+    }
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+group = "com.baseblocks"
+version = "0.0.1"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("org.apache.maven.plugins:maven-checkstyle-plugin:3.3.0")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
