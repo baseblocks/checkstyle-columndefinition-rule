@@ -1,44 +1,93 @@
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'signing'
 }
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
     }
+}
+
+dependencies {
+    implementation("org.apache.maven.plugins:maven-checkstyle-plugin:3.3.1")
+}
+
+group 'tech.baseblocks'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 publishing {
     publications {
+
         mavenJava(MavenPublication) {
-            groupId = 'com.baseblocks'
+
+            groupId = 'tech.baseblocks'
             artifactId = 'checkstyle-columndefinition-rule'
-            version = "0.0.1"
+            version = '0.0.1'
             from components.java
+
+            pom {
+                name = 'Checkstyle Custom Column Definition Rule'
+                description = 'This custom Checkstyle rule is designed to enforce a coding standard where every `@Column` annotation in your Java code\n' +
+                        'must have a `columnDefinition` attribute defined. This rule helps ensure that database column definitions are explicitly\n' +
+                        'specified, promoting better database schema management and reducing potential issues during database migrations.'
+                url = 'https://github.com/baseblocks/checkstyle-columndefinition-rule'
+                inceptionYear = '2032'
+
+                licenses {
+                    license {
+                        name = 'Apache License, Version 2.0'
+                        url = 'https://www.apache.org/licenses/LICENSE-2.0'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'mamedovdenys'
+                        name = 'Denys Mamedov'
+                        email = 'denysmamedov@baseblocks.tech'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/baseblocks/checkstyle-columndefinition-rule'
+                    developerConnection = 'scm:git:ssh://github.com/baseblocks/checkstyle-columndefinition-rule'
+                    url = 'https://github.com/baseblocks/checkstyle-columndefinition-rule'
+                }
+            }
         }
     }
+
     repositories {
-        mavenCentral()
-        mavenLocal()
+        maven {
+            name = "OSSRH"
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.properties["ossrhUsername"]
+                password = project.properties["ossrhPassword"]
+            }
+        }
     }
 }
-group = "com.baseblocks"
-version = "0.0.1"
 
-repositories {
-    mavenLocal()
-    mavenCentral()
+signing {
+    sign publishing.publications.mavenJava
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation("org.apache.maven.plugins:maven-checkstyle-plugin:3.3.0")
-}
 
-tasks.test {
-    useJUnitPlatform()
-}
-task sourceJar(type: Jar) {
-    from sourceSets.main.allJava
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
 }
