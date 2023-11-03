@@ -38,8 +38,8 @@ Maven):
 
 ```groovy
 dependencies {
-    // Other dependencies
-    checkstyle 'com.baseblocks:checkstyle-columndefinition-rule:0.0.'
+  // Other dependencies
+  checkstyle 'tech.baseblocks:checkstyle-columndefinition-rule:0.0.1'
 }
 ```
 #### Maven:
@@ -47,7 +47,7 @@ dependencies {
 ```xml
 <dependency>
     <!-- Other dependencies -->
-    <groupId>com.baseblocks</groupId>
+    <groupId>tech.baseblocks</groupId>
     <artifactId>checkstyle-columndefinition-rule</artifactId>
     <version>0.0.1</version>
     <scope>test</scope>
@@ -86,7 +86,7 @@ In this example, the absence of the `columnDefinition` attribute in the `@Column
 If you find any issues, have suggestions, or would like to contribute to this custom Checkstyle rule, please feel free to open an issue or submit a pull request on the GitHub repository.
 
 ## License
-This custom Checkstyle rule is licensed under the MIT License.
+This custom Checkstyle rule is licensed under Apache License, Version 2.0
 
 ---
 Disclaimer: This custom Checkstyle rule is provided as-is without any warranty. Use it at your own risk.

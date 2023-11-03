@@ -1,4 +1,4 @@
-package com.baseblocks;
+package main.java.tech.baseblocks;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
