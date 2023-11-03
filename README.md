@@ -39,7 +39,7 @@ Maven):
 ```groovy
 dependencies {
   // Other dependencies
-  checkstyle 'com.baseblocks:checkstyle-columndefinition-rule:0.0.1'
+  checkstyle 'tech.baseblocks:checkstyle-columndefinition-rule:0.0.1'
 }
 ```
 #### Maven:
@@ -47,7 +47,7 @@ dependencies {
 ```xml
 <dependency>
     <!-- Other dependencies -->
-    <groupId>com.baseblocks</groupId>
+    <groupId>tech.baseblocks</groupId>
     <artifactId>checkstyle-columndefinition-rule</artifactId>
     <version>0.0.1</version>
     <scope>test</scope>
